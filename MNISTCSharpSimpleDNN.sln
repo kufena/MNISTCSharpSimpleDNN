@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNN", "DNN\DNN.csproj", "{8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNNTest", "DNNTest\DNNTest.csproj", "{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B06515E-6575-4436-95E1-902BA20C8462}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.MD = ReadMe.MD
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
