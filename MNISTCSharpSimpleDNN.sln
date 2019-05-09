@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MNISTCSharpSimpleDNN", "MNISTCSharpSimpleDNN\MNISTCSharpSimpleDNN.csproj", "{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNN", "DNN\DNN.csproj", "{87F29E06-CDEA-4B17-9E70-25E6B818B754}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNNTest", "DNNTest\DNNTest.csproj", "{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87F29E06-CDEA-4B17-9E70-25E6B818B754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87F29E06-CDEA-4B17-9E70-25E6B818B754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87F29E06-CDEA-4B17-9E70-25E6B818B754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87F29E06-CDEA-4B17-9E70-25E6B818B754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
