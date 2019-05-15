@@ -26,7 +26,7 @@ namespace DNN
             this.outputs = outputs;
 
             this.biases = Vector<double>.Build.Dense(outputs);
-            this.weights = Matrix<double>.Build.Dense(inputs,outputs);
+            this.weights = Matrix<double>.Build.Dense(outputs,inputs);
 
         }
 
@@ -39,7 +39,7 @@ namespace DNN
         public void resetWeights(IRandomVariable rv) { 
             for (int i = 0; i < inputs; i++)
                 for (int j = 0; j < outputs; j++)
-                    weights[i, j] = rv.next();
+                    weights[j,i] = rv.next();
         }
 
         public void activate(Vector<double> prevAyes)
@@ -48,7 +48,7 @@ namespace DNN
             if (prevAyes.Count != inputs)
                 throw new ArgumentOutOfRangeException("Expecting vector of size " + inputs + " but got " + prevAyes.Count);
 
-            var aw = weights.Multiply(prevAyes);
+            var aw = weights.Multiply(prevAyes.ToColumnMatrix()).Column(0);
             var awplusb = aw + biases;
 
             ayes = Vector<double>.Build.Dense(outputs);

@@ -21,8 +21,8 @@ namespace DNN
             for(int i = 0; i < nlayers; i++)
             {
                 this.layers[i] = new Layer(dims[i], dims[i + 1]);
-                this.layers[i].resetBiases(new RandomVariables.FixedValueRV(0));
-                this.layers[i].resetWeights(new RandomVariables.FixedValueRV(0));
+                this.layers[i].resetBiases(new RandomVariables.FixedValueRV(0.5));
+                this.layers[i].resetWeights(new RandomVariables.FixedValueRV(0.5));
                 this.layers[i].activationFunction = new Activations.SigmoidActivation();
             }
 
@@ -35,6 +35,19 @@ namespace DNN
             {
                 layers[i].activate(layers[i - 1].ayes);
             }
+        }
+
+        public double train(Vector<double> ins, Vector<double> expect)
+        {
+            activate(ins);
+            double res = layers[numLayers - 1].L2(expect);
+            var derivs = layers[numLayers - 1].ayes.Subtract(expect);
+
+            for (int i = numLayers - 1; i >= 0; i--)
+            {
+                derivs = layers[i].train(derivs);
+            }
+            return res;
         }
     }
 }
