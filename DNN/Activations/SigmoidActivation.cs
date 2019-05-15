@@ -8,7 +8,8 @@ namespace DNN.Activations
     {
         public double activate(double z)
         {
-            return 1.0 / (1 - Math.Exp(z));
+            var e_x = Math.Exp(z);
+            return e_x / (e_x + 1);
         }
 
         public double derivative(double zprime)
