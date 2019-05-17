@@ -10,21 +10,23 @@ namespace DNN
         int numLayers { get; set; }
         int[] dims { get; set; }
 
-        Layer[] layers;
+        ILayer[] layers;
 
         public DNN(int nlayers, int[] dims)
         {
-            this.numLayers = nlayers;
+            this.numLayers = nlayers + 1;
             this.dims = dims;
 
-            this.layers = new Layer[nlayers];
+            this.layers = new ILayer[numLayers];
             for(int i = 0; i < nlayers; i++)
             {
-                this.layers[i] = new Layer(dims[i], dims[i + 1]);
-                this.layers[i].resetBiases(new RandomVariables.FixedValueRV(0.5));
-                this.layers[i].resetWeights(new RandomVariables.FixedValueRV(0.5));
-                this.layers[i].activationFunction = new Activations.SigmoidActivation();
+                var myLayer = new Layer(dims[i], dims[i + 1]);
+                myLayer.resetBiases(new RandomVariables.UniformRV(1031, -0.5, +0.5)); // FixedValueRV(0.5));
+                myLayer.resetWeights(new RandomVariables.UniformRV(1032, 0, 1)); // FixedValueRV(0.5));
+                myLayer.activationFunction = new Activations.RELUActivation();
+                this.layers[i] = myLayer;
             }
+            this.layers[nlayers] = new SoftMax();
 
         }
 

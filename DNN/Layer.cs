@@ -5,7 +5,7 @@ using MathNet.Numerics.LinearAlgebra;
 
 namespace DNN
 {
-    public class Layer
+    public class Layer : ILayer
     {
 
         int inputs { get; set; }
@@ -18,7 +18,7 @@ namespace DNN
         public Vector<double> deriv_ayes { get; set; }
 
 
-        public ActivationFunction activationFunction { get;  set; }
+        public ActivationFunction activationFunction { get; set; }
 
         public Layer(int inputs, int outputs)
         {
@@ -26,7 +26,7 @@ namespace DNN
             this.outputs = outputs;
 
             this.biases = Vector<double>.Build.Dense(outputs);
-            this.weights = Matrix<double>.Build.Dense(outputs,inputs);
+            this.weights = Matrix<double>.Build.Dense(outputs, inputs);
 
         }
 
@@ -36,10 +36,11 @@ namespace DNN
                 biases[j] = rv.next();
         }
 
-        public void resetWeights(IRandomVariable rv) { 
+        public void resetWeights(IRandomVariable rv)
+        {
             for (int i = 0; i < inputs; i++)
                 for (int j = 0; j < outputs; j++)
-                    weights[j,i] = rv.next();
+                    weights[j, i] = rv.next();
         }
 
         public void activate(Vector<double> prevAyes)
@@ -48,7 +49,9 @@ namespace DNN
             if (prevAyes.Count != inputs)
                 throw new ArgumentOutOfRangeException("Expecting vector of size " + inputs + " but got " + prevAyes.Count);
 
-            var aw = weights.Multiply(prevAyes.ToColumnMatrix()).Column(0);
+            var pam = prevAyes.ToColumnMatrix();
+            var awmid = weights.Multiply(pam);
+            var aw = awmid.Column(0);
             var awplusb = aw + biases;
 
             ayes = Vector<double>.Build.Dense(outputs);
@@ -70,7 +73,7 @@ namespace DNN
             var v2 = v1.DotProduct(v1);
             return v2;
         }
-        
+
         //
         // Here upvals is effectivel dC/d(a)L-1 where L-1 is the layer below.
         // For the bottom layer, some outside entity needs to pass in the correct values
@@ -81,8 +84,8 @@ namespace DNN
             var dC_da = weights.Transpose().Multiply(dC_db);
             var dC_dw = dC_db.OuterProduct(in_vals);
 
-            biases = biases.Subtract(dC_db);
-            weights = weights.Subtract(dC_dw);
+            biases = biases.Subtract(dC_db.Multiply(0.01));
+            weights = weights.Subtract(dC_dw.Multiply(0.01));
 
             return dC_da;
         }

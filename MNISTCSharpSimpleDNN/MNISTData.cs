@@ -32,7 +32,7 @@ namespace MNISTCSharpSimpleDNN
             byte[] imageB = trainImages.ReadBytes(28 * 28);
             double[] imageD = new double[imageB.Length];
             for (int i = 0; i < imageB.Length; i++)
-                imageD[i] = ((double)imageB[i])/255.0;
+                imageD[i] = ((double)imageB[i]); //255.0;
             Vector<double> image = Vector<double>.Build.Dense(imageD);
             return (label, image);
         }

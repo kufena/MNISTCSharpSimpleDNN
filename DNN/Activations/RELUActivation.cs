@@ -4,18 +4,18 @@ using System.Text;
 
 namespace DNN.Activations
 {
-    class SigmoidActivation : ActivationFunction
+    class RELUActivation : ActivationFunction
     {
         public double activate(double z)
         {
-            var e_x = Math.Exp(z);
-            return e_x / (e_x + 1.0);
+            if (z > 0) return z;
+            else return 0;
         }
 
         public double derivative(double zprime)
         {
-            double p = activate(zprime);
-            return p * (1 - p);
+            if (zprime > 0) return 1;
+            return 0;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DNN.Activations
          */
         public double derivative(double zprime)
         {
-            return zprime;
+            return 1;
         }
     }
 }
