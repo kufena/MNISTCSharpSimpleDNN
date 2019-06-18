@@ -33,7 +33,7 @@ namespace DNN.RandomVariables
 
         public double next()
         {
-            return (rand.Next() * mult) + add;
+            return (rand.NextDouble() * mult) + add;
         }
     }
 }

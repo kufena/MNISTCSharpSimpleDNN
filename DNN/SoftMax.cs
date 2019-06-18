@@ -52,7 +52,7 @@ namespace DNN
             throw new NotImplementedException();
         }
 
-        public Vector<double> train(Vector<double> upvals)
+        public Vector<double> train(Vector<double> upvals, double training_rate)
         {
             var res = upvals.PointwiseMultiply(deriv_ayes);
             return res;

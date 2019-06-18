@@ -78,14 +78,14 @@ namespace DNN
         // Here upvals is effectivel dC/d(a)L-1 where L-1 is the layer below.
         // For the bottom layer, some outside entity needs to pass in the correct values
         // calculated from the ayes.
-        public Vector<double> train(Vector<double> upvals)
+        public Vector<double> train(Vector<double> upvals, double training_rate)
         {
             var dC_db = Utils.haddamardProduct(upvals, deriv_ayes);
             var dC_da = weights.Transpose().Multiply(dC_db);
             var dC_dw = dC_db.OuterProduct(in_vals);
 
-            biases = biases.Subtract(dC_db.Multiply(0.01));
-            weights = weights.Subtract(dC_dw.Multiply(0.01));
+            biases = biases.Subtract(dC_db.Multiply(training_rate));
+            weights = weights.Subtract(dC_dw.Multiply(training_rate));
 
             return dC_da;
         }

@@ -45,7 +45,7 @@ namespace Tests
             Assert.AreEqual(0.0, l2, 0.00000001d);
             
             var errs = layer.ayes.Subtract(expected);
-            layer.train(errs);
+            layer.train(errs,0.01);
         }
     }
 }

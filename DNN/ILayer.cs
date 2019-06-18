@@ -12,6 +12,6 @@ namespace DNN
         double L2(Vector<double> expected);
         void resetBiases(IRandomVariable rv);
         void resetWeights(IRandomVariable rv);
-        Vector<double> train(Vector<double> upvals);
+        Vector<double> train(Vector<double> upvals, double training_rate);
     }
 }

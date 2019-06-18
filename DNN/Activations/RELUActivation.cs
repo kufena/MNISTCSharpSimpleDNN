@@ -12,6 +12,8 @@ namespace DNN.Activations
             else return 0;
         }
 
+        // we're using an arbitrary value for the derivative at zero as ReLu has
+        // no derivate at zero.
         public double derivative(double zprime)
         {
             if (zprime > 0) return 1;

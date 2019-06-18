@@ -10,22 +10,65 @@ namespace MNISTCSharpSimpleDNN
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Start with MNist.");
+            
+            Console.WriteLine("starting simple");
+            SimpleData sd = new SimpleData(@"C:\Users\potte\simpledata.txt");
+            DNN.DNN dnn = new DNN.DNN();
+
+            var (lable,data) = sd.getTrainingImage();
+            while(lable != -1)
+            {
+                var expect = Vector<double>.Build.Dense(new double[] { 0, 0 });
+                expect[lable] = 1;
+                var l2 = dnn.train(data, expect, 0.01);
+
+                var lastactivation = dnn.activation;
+                string s = "";
+                double d = -10;
+                for (int ji = 0; ji < lastactivation.Count; ji++)
+                {
+                    if (lastactivation[ji] > d)
+                    {
+                        d = lastactivation[ji];
+                        s = ji.ToString();
+                    }
+                }
+
+                Console.WriteLine("given a " + lable + " found: " + s + " L2 = " + l2);
+                (lable, data) = sd.getTrainingImage();
+            }
+
             /*
+            Console.WriteLine("Start with MNist.");
+            
             MNISTData mdata = new MNISTData(@"C:\Users\potte\Downloads");
             DNN.DNN dnn = new DNN.DNN(3, new int[] { 28 * 28, 16, 16, 10 });
-            
-            for(int i = 0; i < 50000; i++)
+
+            for (int i = 0; i < 50000; i++)
             {
                 (int label, Vector<double> image) = mdata.getTrainingImage();
                 Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                 expect[label] = 1.0;
                 double l2 = dnn.train(image, expect);
                 if (i % 1000 == 0)
-                    Console.WriteLine("L2 = " + l2);
+                {
+                    var lastactivation = dnn.activation;
+                    string s = "";
+                    double d = -10;
+                    for (int ji = 0; ji < lastactivation.Count; ji++)
+                    {
+                        if (lastactivation[ji] > d)
+                        {
+                            d = lastactivation[ji];
+                            s = ji.ToString();
+                        }
+                    }
+                    
+                    Console.WriteLine("given a " + label + " found: " + s + "  L2 = " + l2);
+                }
             }
-            
             */
+            /*
             Layer l = new Layer(1, 1);
             l.resetBiases(new FixedValueRV(0));
             l.resetWeights(new FixedValueRV(1));
@@ -83,6 +126,7 @@ namespace MNISTCSharpSimpleDNN
 
             Console.WriteLine("w = " + l.weights[0, 0]);
             Console.WriteLine("b = " + l.biases[0]);
+            */
             Console.WriteLine("done!");
             
         }
