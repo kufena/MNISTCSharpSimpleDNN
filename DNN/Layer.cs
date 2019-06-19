@@ -82,7 +82,7 @@ namespace DNN
         {
             var dC_db = Utils.haddamardProduct(upvals, deriv_ayes);
             var dC_da = weights.Transpose().Multiply(dC_db);
-            var dC_dw = dC_db.OuterProduct(in_vals);
+            var dC_dw = dC_db.ToColumnMatrix().Multiply(in_vals.ToRowMatrix()); // OuterProduct(in_vals);
 
             biases = biases.Subtract(dC_db.Multiply(training_rate));
             weights = weights.Subtract(dC_dw.Multiply(training_rate));

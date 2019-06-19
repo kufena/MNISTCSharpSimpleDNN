@@ -14,7 +14,7 @@ namespace DNN
 
         public DNN(int nlayers, int[] dims)
         {
-            this.numLayers = nlayers + 1;
+            this.numLayers = nlayers;// + 1;
             this.dims = dims;
 
             this.layers = new ILayer[numLayers];
@@ -26,7 +26,7 @@ namespace DNN
                 myLayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = myLayer;
             }
-            this.layers[nlayers] = new SoftMax();
+            //this.layers[nlayers] = new SoftMax();
 
         }
 
@@ -38,8 +38,8 @@ namespace DNN
             for(int i = 0; i < numLayers; i++)
             {
                 var mylayer = new Layer(dims[i], dims[i+1]);
-                mylayer.resetBiases(new RandomVariables.UniformRV(1031, 0, 1));
-                mylayer.resetWeights(new RandomVariables.UniformRV(1032, 0, 1));
+                mylayer.resetBiases(new RandomVariables.FixedValueRV(0.5)); //RandomVariables.UniformRV(1031, 0, 1));
+                mylayer.resetWeights(new RandomVariables.FixedValueRV(0.5)); //UniformRV(1032, 0, 1));
                 mylayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = mylayer;
             }

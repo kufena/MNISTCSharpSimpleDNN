@@ -10,7 +10,7 @@ namespace MNISTCSharpSimpleDNN
     {
         static void Main(string[] args)
         {
-            
+            /*
             Console.WriteLine("starting simple");
             SimpleData sd = new SimpleData(@"C:\Users\potte\simpledata.txt");
             DNN.DNN dnn = new DNN.DNN();
@@ -20,7 +20,7 @@ namespace MNISTCSharpSimpleDNN
             {
                 var expect = Vector<double>.Build.Dense(new double[] { 0, 0 });
                 expect[lable] = 1;
-                var l2 = dnn.train(data, expect, 0.01);
+                var l2 = dnn.train(data, expect, 0.1);
 
                 var lastactivation = dnn.activation;
                 string s = "";
@@ -37,8 +37,8 @@ namespace MNISTCSharpSimpleDNN
                 Console.WriteLine("given a " + lable + " found: " + s + " L2 = " + l2);
                 (lable, data) = sd.getTrainingImage();
             }
-
-            /*
+            */
+            /* */
             Console.WriteLine("Start with MNist.");
             
             MNISTData mdata = new MNISTData(@"C:\Users\potte\Downloads");
@@ -49,7 +49,7 @@ namespace MNISTCSharpSimpleDNN
                 (int label, Vector<double> image) = mdata.getTrainingImage();
                 Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                 expect[label] = 1.0;
-                double l2 = dnn.train(image, expect);
+                double l2 = dnn.train(image, expect, 0.1);
                 if (i % 1000 == 0)
                 {
                     var lastactivation = dnn.activation;
@@ -67,7 +67,7 @@ namespace MNISTCSharpSimpleDNN
                     Console.WriteLine("given a " + label + " found: " + s + "  L2 = " + l2);
                 }
             }
-            */
+            
             /*
             Layer l = new Layer(1, 1);
             l.resetBiases(new FixedValueRV(0));
