@@ -11,10 +11,13 @@ namespace MNISTCSharpSimpleDNN
 
         BinaryReader trainLabels;
         BinaryReader trainImages;
-        public MNISTData(string dir)
+        public MNISTData(string dir) : this(dir + @"\train-images.idx3-ubyte", dir + @"\train-labels.idx1-ubyte")
+        { }
+
+        public MNISTData(string imgfile, string labelfile)
         {
-            trainImages = new BinaryReader(File.OpenRead(dir + @"\train-images.idx3-ubyte"));
-            trainLabels = new BinaryReader(File.OpenRead(dir + @"\train-labels.idx1-ubyte"));
+            trainImages = new BinaryReader(File.OpenRead(imgfile));
+            trainLabels = new BinaryReader(File.OpenRead(labelfile));
 
             trainImages.ReadBytes(4); // magic
             trainImages.ReadBytes(4); // num of images
@@ -32,7 +35,7 @@ namespace MNISTCSharpSimpleDNN
             byte[] imageB = trainImages.ReadBytes(28 * 28);
             double[] imageD = new double[imageB.Length];
             for (int i = 0; i < imageB.Length; i++)
-                imageD[i] = ((double)imageB[i]); //255.0;
+                imageD[i] = ((double)imageB[i]) / 255.0;
             Vector<double> image = Vector<double>.Build.Dense(imageD);
             return (label, image);
         }

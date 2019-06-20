@@ -40,7 +40,7 @@ namespace MNISTCSharpSimpleDNN
             */
             /* */
             Console.WriteLine("Start with MNist.");
-            
+
             MNISTData mdata = new MNISTData(@"C:\Users\potte\Downloads");
             DNN.DNN dnn = new DNN.DNN(3, new int[] { 28 * 28, 16, 16, 10 });
 
@@ -49,7 +49,7 @@ namespace MNISTCSharpSimpleDNN
                 (int label, Vector<double> image) = mdata.getTrainingImage();
                 Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                 expect[label] = 1.0;
-                double l2 = dnn.train(image, expect, 0.1);
+                double l2 = dnn.train(image, expect, 0.01);
                 if (i % 1000 == 0)
                 {
                     var lastactivation = dnn.activation;
@@ -63,11 +63,38 @@ namespace MNISTCSharpSimpleDNN
                             s = ji.ToString();
                         }
                     }
-                    
+
                     Console.WriteLine("given a " + label + " found: " + s + "  L2 = " + l2);
                 }
             }
-            
+
+            int correct = 0;
+            int wrong = 0;
+
+            MNISTData test = new MNISTData(@"C:\Users\potte\Downloads\t10k-images.idx3-ubyte", @"C:\Users\potte\Downloads\t10k-labels.idx1-ubyte");
+            for (int i = 0; i < 10000; i++)
+            {
+                (int label, Vector<double> image) = mdata.getTrainingImage();
+                Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+                expect[label] = 1.0;
+                dnn.activate(image);
+                var lastactivation = dnn.activation;
+                int found = -1;
+                double d = -10;
+                for (int ji = 0; ji < lastactivation.Count; ji++)
+                {
+                    if (lastactivation[ji] > d)
+                    {
+                        d = lastactivation[ji];
+                        found = ji;
+                    }
+                }
+                if (found == label) correct++;
+                else wrong++;
+            }
+
+            Console.WriteLine("Of 10000 tests, " + correct + " were correct, " + wrong + " were wrong.");
+
             /*
             Layer l = new Layer(1, 1);
             l.resetBiases(new FixedValueRV(0));

@@ -49,19 +49,17 @@ namespace DNN
             if (prevAyes.Count != inputs)
                 throw new ArgumentOutOfRangeException("Expecting vector of size " + inputs + " but got " + prevAyes.Count);
 
-            var pam = prevAyes.ToColumnMatrix();
-            var awmid = weights.Multiply(pam);
-            var aw = awmid.Column(0);
-            var awplusb = aw + biases;
+            var awmid = weights.Multiply(prevAyes.ToColumnMatrix());
+            var awplusb = awmid + biases.ToColumnMatrix();
 
-            ayes = Vector<double>.Build.Dense(outputs);
-            deriv_ayes = Vector<double>.Build.Dense(outputs);
+            Matrix<double> ayesM = Matrix<double>.Build.Dense(outputs, 1);
+            Matrix<double> deriv_ayesM = Matrix<double>.Build.Dense(outputs, 1);
 
-            for (int i = 0; i < outputs; i++)
-            {
-                ayes[i] = activationFunction.activate(awplusb[i]);
-                deriv_ayes[i] = activationFunction.derivative(awplusb[i]);
-            }
+            awplusb.Map(activationFunction.activate, ayesM);
+            awplusb.Map(activationFunction.derivative, deriv_ayesM);
+
+            ayes = ayesM.Column(0);
+            deriv_ayes = deriv_ayesM.Column(0);
         }
 
         public double L2(Vector<double> expected)

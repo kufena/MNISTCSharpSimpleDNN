@@ -9,27 +9,28 @@ namespace DNN
     {
         public ActivationFunction activationFunction { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public Vector<double> ayes { get; set; }
-        public Vector<double> deriv_ayes { get; set; }
+        public Matrix<double> deriv_ayes { get; set; }
 
         public void activate(Vector<double> prevAyes)
         {
-            double sum = prevAyes.Sum();
-            double sumsq = sum * sum;
-            ayes = Vector<double>.Build.Dense(prevAyes.Count);
-            deriv_ayes = Vector<double>.Build.Dense(prevAyes.Count);
+            Vector<double> allthees = Vector<double>.Build.Dense(prevAyes.Count);
+            prevAyes.Map(Math.Exp, allthees);
+
+            double sum = allthees.Sum();
+            ayes = allthees / sum; //Vector<double>.Build.Dense(prevAyes.Count);
+            deriv_ayes = Matrix<double>.Build.Dense(prevAyes.Count, prevAyes.Count);
 
             for (int i = 0; i < prevAyes.Count; i++)
             {
-                ayes[i] = prevAyes[i] / sum;
                 for(int j = 0; j < prevAyes.Count; j++)
                 {
                     if (i == j)
                     {
-                        deriv_ayes[i] += (sum - prevAyes[i]) / sumsq; 
+                        deriv_ayes[i, j] = (1 - ayes[i]);
                     }
                     else
                     {
-                        deriv_ayes[i] += (-prevAyes[i]) / sumsq;
+                        deriv_ayes[i, j] = -(ayes[i] * ayes[j]);
                     }
                 }
             }
@@ -54,8 +55,8 @@ namespace DNN
 
         public Vector<double> train(Vector<double> upvals, double training_rate)
         {
-            var res = upvals.PointwiseMultiply(deriv_ayes);
-            return res;
+            var res = deriv_ayes.Multiply(upvals.ToColumnMatrix()); //upvals.PointwiseMultiply(deriv_ayes);
+            return res.Column(0).Multiply(training_rate);
         }
     }
 }

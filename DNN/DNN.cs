@@ -22,7 +22,7 @@ namespace DNN
             {
                 var myLayer = new Layer(dims[i], dims[i + 1]);
                 myLayer.resetBiases(new RandomVariables.UniformRV(1031, -0.5, +0.5)); // FixedValueRV(0.5));
-                myLayer.resetWeights(new RandomVariables.UniformRV(1032, 0, 1)); // FixedValueRV(0.5));
+                myLayer.resetWeights(new RandomVariables.UniformRV(1032, -0.5, 0.5)); // FixedValueRV(0.5));
                 myLayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = myLayer;
             }

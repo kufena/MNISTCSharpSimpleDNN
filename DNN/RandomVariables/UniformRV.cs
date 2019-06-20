@@ -9,9 +9,14 @@ namespace DNN.RandomVariables
         Random rand;
         double mult = 0;
         double add = 0;
+        double min = 0;
+        double max = 0;
 
         public UniformRV(int seed, double min, double max)
         {
+            this.min = min;
+            this.max = max;
+
             rand = new Random(seed);
             if (min >= max)
                 throw new ArgumentException("min after max");

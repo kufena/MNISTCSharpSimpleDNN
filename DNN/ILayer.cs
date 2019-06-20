@@ -6,7 +6,7 @@ namespace DNN
     {
         ActivationFunction activationFunction { get; set; }
         Vector<double> ayes { get; set; }
-        Vector<double> deriv_ayes { get; set; }
+        //Vector<double> deriv_ayes { get; set; }
 
         void activate(Vector<double> prevAyes);
         double L2(Vector<double> expected);
