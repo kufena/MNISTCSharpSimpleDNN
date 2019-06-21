@@ -44,33 +44,42 @@ namespace MNISTCSharpSimpleDNN
             MNISTData mdata = new MNISTData(@"C:\Users\potte\Downloads");
             DNN.DNN dnn = new DNN.DNN(3, new int[] { 28 * 28, 16, 16, 10 });
 
+            int correct = 0;
+            int wrong = 0;
+            int found = -1;
+
             for (int i = 0; i < 50000; i++)
             {
                 (int label, Vector<double> image) = mdata.getTrainingImage();
                 Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                 expect[label] = 1.0;
-                double l2 = dnn.train(image, expect, 0.01);
+                dnn.train(image, expect, 0.01);
+
+                found = -1;
+                double d = -9999;
+                var lastactivation = dnn.activation;
+                for (int ji = 0; ji < lastactivation.Count; ji++)
+                {
+                    if (lastactivation[ji] > d)
+                    {
+                        d = lastactivation[ji];
+                        found = ji;
+                    }
+                }
+
+                if (found == label)
+                    correct++;
+                else
+                    wrong++;
+
                 if (i % 1000 == 0)
                 {
-                    var lastactivation = dnn.activation;
-                    string s = "";
-                    double d = -10;
-                    for (int ji = 0; ji < lastactivation.Count; ji++)
-                    {
-                        if (lastactivation[ji] > d)
-                        {
-                            d = lastactivation[ji];
-                            s = ji.ToString();
-                        }
-                    }
-
-                    Console.WriteLine("given a " + label + " found: " + s + "  L2 = " + l2);
+                    Console.WriteLine("correct: " + correct + " wrong: " + wrong);
+                    correct = 0; wrong = 0;
                 }
             }
 
-            int correct = 0;
-            int wrong = 0;
-
+            correct = 0; wrong = 0;
             MNISTData test = new MNISTData(@"C:\Users\potte\Downloads\t10k-images.idx3-ubyte", @"C:\Users\potte\Downloads\t10k-labels.idx1-ubyte");
             for (int i = 0; i < 10000; i++)
             {
@@ -79,7 +88,7 @@ namespace MNISTCSharpSimpleDNN
                 expect[label] = 1.0;
                 dnn.activate(image);
                 var lastactivation = dnn.activation;
-                int found = -1;
+                found = -1;
                 double d = -10;
                 for (int ji = 0; ji < lastactivation.Count; ji++)
                 {
