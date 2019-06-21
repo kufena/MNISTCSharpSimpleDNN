@@ -55,8 +55,10 @@ namespace DNN
 
         public Vector<double> train(Vector<double> upvals, double training_rate)
         {
-            var res = deriv_ayes.Multiply(upvals.ToColumnMatrix()); //upvals.PointwiseMultiply(deriv_ayes);
-            return res.Column(0).Multiply(training_rate);
+            //var res = deriv_ayes.Multiply(upvals.ToColumnMatrix()); //upvals.PointwiseMultiply(deriv_ayes);
+            //return res.Column(0).Multiply(training_rate);
+
+            return upvals;
         }
     }
 }

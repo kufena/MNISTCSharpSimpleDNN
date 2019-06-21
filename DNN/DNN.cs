@@ -14,7 +14,7 @@ namespace DNN
 
         public DNN(int nlayers, int[] dims)
         {
-            this.numLayers = nlayers;// + 1;
+            this.numLayers = nlayers + 1;
             this.dims = dims;
 
             this.layers = new ILayer[numLayers];
@@ -26,7 +26,7 @@ namespace DNN
                 myLayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = myLayer;
             }
-            //this.layers[nlayers] = new SoftMax();
+            this.layers[nlayers] = new SoftMax();
 
         }
 
