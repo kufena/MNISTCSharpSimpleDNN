@@ -53,7 +53,7 @@ namespace MNISTCSharpSimpleDNN
                 (int label, Vector<double> image) = mdata.getTrainingImage();
                 Vector<double> expect = Vector<double>.Build.Dense(new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                 expect[label] = 1.0;
-                dnn.train(image, expect, 0.01);
+                dnn.train(image, expect, 0.018);
 
                 found = -1;
                 double d = -9999;
