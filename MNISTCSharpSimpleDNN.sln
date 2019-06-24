@@ -3,16 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MNISTCSharpSimpleDNN", "MNISTCSharpSimpleDNN\MNISTCSharpSimpleDNN.csproj", "{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MNISTCSharpSimpleDNN", "MNISTCSharpSimpleDNN\MNISTCSharpSimpleDNN.csproj", "{584BFB8D-F7B9-477D-AFB9-5A25999D5F0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNN", "DNN\DNN.csproj", "{87F29E06-CDEA-4B17-9E70-25E6B818B754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNN", "DNN\DNN.csproj", "{87F29E06-CDEA-4B17-9E70-25E6B818B754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNNTest", "DNNTest\DNNTest.csproj", "{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNNTest", "DNNTest\DNNTest.csproj", "{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B06515E-6575-4436-95E1-902BA20C8462}"
 	ProjectSection(SolutionItems) = preProject
 		ReadMe.MD = ReadMe.MD
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNN", "CNN\CNN.csproj", "{ED475452-EC76-49F3-932F-520501CF45DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDF899EF-7EDE-48FC-843F-9AEF5E1A587B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED475452-EC76-49F3-932F-520501CF45DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED475452-EC76-49F3-932F-520501CF45DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED475452-EC76-49F3-932F-520501CF45DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED475452-EC76-49F3-932F-520501CF45DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
