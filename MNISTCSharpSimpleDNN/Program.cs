@@ -21,8 +21,8 @@ Line by line description: https://writing.kemitchell.com/2016/09/21/MIT-License-
 using System;
 using MathNet.Numerics.LinearAlgebra;
 using DNN;
-using DNN.RandomVariables;
 using DNN.Activations;
+using Utilities.RandomVariables;
 
 namespace MNISTCSharpSimpleDNN
 {

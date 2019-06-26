@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MathNet.Numerics.LinearAlgebra;
+using Utilities.RandomVariables;
 
 namespace DNN
 {
@@ -41,8 +42,8 @@ namespace DNN
             for(int i = 0; i < nlayers; i++)
             {
                 var myLayer = new Layer(dims[i], dims[i + 1]);
-                myLayer.resetBiases(new RandomVariables.UniformRV(1031, -0.5, +0.5)); // FixedValueRV(0.5));
-                myLayer.resetWeights(new RandomVariables.UniformRV(1032, -0.5, 0.5)); // FixedValueRV(0.5));
+                myLayer.resetBiases(new UniformRV(1031, -0.5, +0.5)); // FixedValueRV(0.5));
+                myLayer.resetWeights(new UniformRV(1032, -0.5, 0.5)); // FixedValueRV(0.5));
                 myLayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = myLayer;
             }
@@ -58,8 +59,8 @@ namespace DNN
             for(int i = 0; i < numLayers; i++)
             {
                 var mylayer = new Layer(dims[i], dims[i+1]);
-                mylayer.resetBiases(new RandomVariables.FixedValueRV(0.5)); //RandomVariables.UniformRV(1031, 0, 1));
-                mylayer.resetWeights(new RandomVariables.FixedValueRV(0.5)); //UniformRV(1032, 0, 1));
+                mylayer.resetBiases(new FixedValueRV(0.5)); //RandomVariables.UniformRV(1031, 0, 1));
+                mylayer.resetWeights(new FixedValueRV(0.5)); //UniformRV(1032, 0, 1));
                 mylayer.activationFunction = new Activations.RELUActivation();
                 this.layers[i] = mylayer;
             }

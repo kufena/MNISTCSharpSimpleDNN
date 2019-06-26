@@ -22,20 +22,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DNN.RandomVariables
+namespace Utilities.RandomVariables
 {
-    public class FixedValueRV : IRandomVariable
+    public interface IRandomVariable
     {
-        double d;
-
-        public FixedValueRV(double dd)
-        {
-            d = dd;
-        }
-
-        public double next()
-        {
-            return d;
-        }
+        double next();
     }
 }

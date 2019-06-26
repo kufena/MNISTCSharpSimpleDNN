@@ -19,6 +19,7 @@ Line by line description: https://writing.kemitchell.com/2016/09/21/MIT-License-
 
 **/
 using MathNet.Numerics.LinearAlgebra;
+using Utilities.RandomVariables;
 
 namespace DNN
 {

@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Andrew Douglas. 
+Copyright (c) 2019 Andrew Douglas.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -21,44 +21,44 @@ Line by line description: https://writing.kemitchell.com/2016/09/21/MIT-License-
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MathNet.Numerics.LinearAlgebra;
 
-namespace DNN
+namespace Utilities.RandomVariables
 {
-    public class Utils
+    public class UniformRV : IRandomVariable
     {
-        public static Vector<double> haddamardProduct(Vector<double> x, Vector<double> y)
-        {
-            if (x.Count != y.Count)
-                throw new ArgumentException("unequal length vectors passed");
+        Random rand;
+        double mult = 0;
+        double add = 0;
+        double min = 0;
+        double max = 0;
 
-            Vector<double> result = Vector<double>.Build.Dense(x.Count);
-            for (int i = 0; i < x.Count; i++)
-                result[i] = x[i] * y[i];
-            return result;
+        public UniformRV(int seed, double min, double max)
+        {
+            this.min = min;
+            this.max = max;
+
+            rand = new Random(seed);
+            if (min >= max)
+                throw new ArgumentException("min after max");
+
+            add = min;
+            if (min >= 0)
+            {
+                mult = max - min;
+            }
+            else if (max < 0)
+            {
+                mult = Math.Abs(min) - Math.Abs(max);
+            }
+            else
+            {
+                mult = Math.Abs(min) + max;
+            }
         }
 
-        public static Vector<double> collapseMatrixSumRows(Matrix<double> m)
+        public double next()
         {
-            Vector<double> res = Vector<double>.Build.Dense(m.ColumnCount);
-            for(int i = 0; i < m.ColumnCount; i++)
-                for(int j = 0; j < m.RowCount; j++)
-                {
-                    res[i] += m[j, i];
-                }
-            return res;
+            return (rand.NextDouble() * mult) + add;
         }
-
-        public static Vector<double> collapseMatrixSumCols(Matrix<double> m)
-        {
-            Vector<double> res = Vector<double>.Build.Dense(m.RowCount);
-            for (int i = 0; i < m.RowCount; i++)
-                for (int j = 0; j < m.ColumnCount; j++)
-                {
-                    res[i] += m[i,j];
-                }
-            return res;
-        }
-
     }
 }

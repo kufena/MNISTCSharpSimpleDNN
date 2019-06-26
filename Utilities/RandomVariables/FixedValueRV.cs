@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Andrew Douglas.
+Copyright (c) 2019 Andrew Douglas. 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -22,43 +22,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DNN.RandomVariables
+namespace Utilities.RandomVariables
 {
-    public class UniformRV : IRandomVariable
+    public class FixedValueRV : IRandomVariable
     {
-        Random rand;
-        double mult = 0;
-        double add = 0;
-        double min = 0;
-        double max = 0;
+        double d;
 
-        public UniformRV(int seed, double min, double max)
+        public FixedValueRV(double dd)
         {
-            this.min = min;
-            this.max = max;
-
-            rand = new Random(seed);
-            if (min >= max)
-                throw new ArgumentException("min after max");
-
-            add = min;
-            if (min >= 0)
-            {
-                mult = max - min;
-            }
-            else if (max < 0)
-            {
-                mult = Math.Abs(min) - Math.Abs(max);
-            }
-            else
-            {
-                mult = Math.Abs(min) + max;
-            }
+            d = dd;
         }
 
         public double next()
         {
-            return (rand.NextDouble() * mult) + add;
+            return d;
         }
     }
 }

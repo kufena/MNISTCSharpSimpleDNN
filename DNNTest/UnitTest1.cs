@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using DNN;
 using DNN.Activations;
-using DNN.RandomVariables;
 using MathNet.Numerics.LinearAlgebra;
+using Utilities.RandomVariables;
 
 namespace Tests
 {

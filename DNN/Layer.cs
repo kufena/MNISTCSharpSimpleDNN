@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using MathNet.Numerics.LinearAlgebra;
+using Utilities.RandomVariables;
 
 namespace DNN
 {
@@ -98,7 +99,7 @@ namespace DNN
         // calculated from the ayes.
         public Vector<double> train(Vector<double> upvals, double training_rate)
         {
-            var dC_db = Utils.haddamardProduct(upvals, deriv_ayes);
+            var dC_db = upvals.PointwiseMultiply(deriv_ayes); //Utils.haddamardProduct(upvals, deriv_ayes);
             var dC_da = weights.Transpose().Multiply(dC_db);
             var dC_dw = dC_db.ToColumnMatrix().Multiply(in_vals.ToRowMatrix()); // OuterProduct(in_vals);
 
