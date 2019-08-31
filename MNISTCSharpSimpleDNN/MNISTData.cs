@@ -31,11 +31,13 @@ namespace MNISTCSharpSimpleDNN
 
         BinaryReader trainLabels;
         BinaryReader trainImages;
-        public MNISTData(string dir) : this(dir + @"\train-images.idx3-ubyte", dir + @"\train-labels.idx1-ubyte")
+        public MNISTData(string dir) : this(dir + @"/train-images.idx3-ubyte", dir + @"/train-labels.idx1-ubyte")
         { }
 
         public MNISTData(string imgfile, string labelfile)
         {
+
+            
             trainImages = new BinaryReader(File.OpenRead(imgfile));
             trainLabels = new BinaryReader(File.OpenRead(labelfile));
 

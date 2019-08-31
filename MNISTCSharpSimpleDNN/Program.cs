@@ -61,8 +61,8 @@ namespace MNISTCSharpSimpleDNN
             /* */
             Console.WriteLine("Start with MNist.");
 
-            MNISTData mdata = new MNISTData(@"C:\Users\potte\Downloads");
-            DNN.DNN dnn = new DNN.DNN(3, new int[] { 28 * 28, 16, 16, 10 });
+            MNISTData mdata = new MNISTData(@"/media/andrewd/New Volume1/Users/potte/Downloads"); //C:\Users\potte\Downloads");
+            DNN.DNN dnn = new DNN.DNN(3, new int[] { 28 * 28, 48, 32, 10 });
 
             int correct = 0;
             int wrong = 0;
@@ -100,7 +100,8 @@ namespace MNISTCSharpSimpleDNN
             }
 
             correct = 0; wrong = 0;
-            MNISTData test = new MNISTData(@"C:\Users\potte\Downloads\t10k-images.idx3-ubyte", @"C:\Users\potte\Downloads\t10k-labels.idx1-ubyte");
+            MNISTData test = new MNISTData(@"/media/andrewd/New Volume1/Users/potte/Downloads/t10k-images.idx3-ubyte", 
+                                           @"/media/andrewd/New Volume1/Users/potte/Downloads/t10k-labels.idx1-ubyte");
             for (int i = 0; i < 10000; i++)
             {
                 (int label, Vector<double> image) = mdata.getTrainingImage();
